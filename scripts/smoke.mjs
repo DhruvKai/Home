@@ -7,7 +7,7 @@ import { launch } from './browser.mjs';
 const base = (process.env.BASE_URL ?? 'http://localhost:4173').replace(/\/$/, '');
 const LABEL = 'Concept Demo — Fictional Business';
 
-const PORTFOLIO = ['/', '/work/overhere', '/work/dtours', '/work/kiddy-widdy', '/contact?ref=clinic', '/credits'];
+const PORTFOLIO = ['/', '/work/overhere', '/work/dtours', '/work/kidy', '/contact?ref=clinic', '/credits'];
 const DEMOS = [
   '/demos/clinic', '/demos/clinic/admin', '/demos/hotel', '/demos/hotel/rooms/glass-suite', '/demos/restaurant',
   '/demos/ecommerce', '/demos/ecommerce/c/all', '/demos/ecommerce/c/wear', '/demos/ecommerce/p/cotton-tee', '/demos/ecommerce/cart',

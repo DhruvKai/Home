@@ -33,7 +33,7 @@ function Hero() {
       </div>
 
       <motion.div {...enter(0.2)} className="relative mx-auto w-full max-w-[640px] pb-10 pr-6 sm:pr-12">
-        <Shot src={shot('work', 'kiddy')} alt="KiDDY WiDDY store prototype, home page" ratio="16/10" eager className="shadow-[0_30px_60px_-30px_rgb(18_22_20/0.35)]" />
+        <Shot src={shot('work', 'dtours')} alt="Dtours trek-booking site, home page" ratio="16/10" eager className="shadow-[0_30px_60px_-30px_rgb(18_22_20/0.35)]" />
         <div className="absolute -bottom-2 right-0 w-[30%] min-w-[110px] overflow-hidden rounded-[22px] border-[5px] border-fg bg-fg shadow-[0_24px_48px_-20px_rgb(18_22_20/0.5)]" style={{ aspectRatio: '390/760' }}>
           <img src={shot('work', 'overhere-mobile')} alt="Overhere app on a phone" className="size-full rounded-[17px] object-cover object-top" />
         </div>

@@ -17,8 +17,8 @@ const targets = {
     ['overhere', 'https://overhere.social/', { width: 1024, height: 640, deviceScaleFactor: 2 }],
     ['overhere-mobile', 'https://overhere.social/app.html', { width: 390, height: 844, isMobile: true, deviceScaleFactor: 2 }],
     ['dtours', 'https://dhruvkai.github.io/Dtours/', { width: 1440, height: 900 }],
-    ['kiddy', 'https://dhruvkai.github.io/Kidy/', { width: 1440, height: 900 }, (p) => clickText(p, 'Essential only')],
-    ['kiddy-admin', 'https://dhruvkai.github.io/Kidy/admin', { width: 1440, height: 900 }, async (p) => { await clickText(p, 'Essential only').catch(() => {}); await clickText(p, 'Log in'); }],
+    ['kidy', 'https://dhruvkai.github.io/Kidy/', { width: 1440, height: 900 }, (p) => clickText(p, 'Essential only')],
+    ['kidy-admin', 'https://dhruvkai.github.io/Kidy/admin', { width: 1440, height: 900 }, async (p) => { await clickText(p, 'Essential only').catch(() => {}); await clickText(p, 'Log in'); }],
   ],
   demos: [
     ['clinic', '/demos/clinic'],

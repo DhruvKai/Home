@@ -23,7 +23,7 @@ Vite + React 19 + React Router 7 + Tailwind v4 (`@tailwindcss/vite`) + Zustand (
 ## Real projects (verified)
 - **Overhere**: https://overhere.social (GitHub Pages, CNAME). Mobile-first PWA for finding company for plans in Chandigarh. Vanilla JS SPA, Supabase (Postgres RLS, Auth, Realtime, Edge Functions in Deno/TS), Twilio Verify, AWS Rekognition Face Liveness, Cloudflare Turnstile, Leaflet/OSM, CSP, Puppeteer tests. Source: repo `tech.txt`.
 - **Dtours**: https://dhruvkai.github.io/Dtours/. Trek-booking app for Himachal and Uttarakhand. Node/Express/MongoDB/Pug, JWT, Stripe, email reset, image resize, reviews, maps. The live site is the static front-end version (`docs/`, data in localStorage).
-- **Kidy** (README: "KiDDY WiDDY"): https://dhruvkai.github.io/Kidy/. Kids clothing store prototype covering storefront and no-code admin. React 19, Vite, Tailwind v4, Zustand, Fuse.js, Recharts. Lighthouse accessibility and best practices 100.
+- **Kidy** (always "Kidy" on the site, never "KiDDY WiDDY"): https://dhruvkai.github.io/Kidy/. Kids clothing store prototype covering storefront and no-code admin. React 19, Vite, Tailwind v4, Zustand, Fuse.js, Recharts. Lighthouse accessibility and best practices 100.
 - Software & tools group (GitHub links only): VULVoyager (CVE lookup with NVD, EPSS and KEV, Flask desktop), SandBoxEQ (hash/URL/IP threat-intel scanner), ZIPY (installer extraction, hashing and entropy, Excel reports), CAM (offline C# kiosk security-awareness games).
 
 ## Folder map

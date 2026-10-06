@@ -55,15 +55,15 @@ export const work = [
     ],
   },
   {
-    slug: 'kiddy-widdy',
-    name: 'KiDDY WiDDY',
+    slug: 'kidy',
+    name: 'Kidy',
     // Source: Kidy/README.md
     kind: 'Store prototype',
     summary: 'A clickable prototype of a kids clothing store for India, built ahead of a Shopify build. It covers the full shopping flow and a no-code admin.',
     live: 'https://dhruvkai.github.io/Kidy/',
     liveLabel: 'dhruvkai.github.io/Kidy',
     github: 'https://github.com/DhruvKai/Kidy',
-    shots: { main: 'kiddy', admin: 'kiddy-admin' },
+    shots: { main: 'kidy', admin: 'kidy-admin' },
     features: [
       'Storefront: home, typo-tolerant search, filters, product page, bag, checkout, tracking, returns and GST invoice',
       'No-code admin: dashboard, add product with auto variants, bulk CSV upload, orders, inventory, discounts, returns and customers',
