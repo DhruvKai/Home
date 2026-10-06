@@ -1,0 +1,203 @@
+@import 'tailwindcss';
+
+/*
+  Design tokens. Every surface (the portfolio and each demo) defines the same semantic
+  variables, so Tailwind utilities like bg-surface or text-accent adapt to the surface they
+  are rendered in. Each surface has exactly one accent colour, in light and dark.
+  Shape rule (all surfaces): buttons are pills, cards 16px, inputs 10px.
+*/
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-sunken: var(--sunken);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-bad: var(--bad);
+  --font-display: var(--f-display);
+  --font-body: var(--f-body);
+  --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
+}
+
+/* Portfolio (Geist, emerald) */
+:root {
+  --bg: #f6f7f5;
+  --surface: #ffffff;
+  --sunken: #ebeeea;
+  --fg: #121614;
+  --muted: #59625d;
+  --line: #d9ded9;
+  --accent: #157a5b;
+  --on-accent: #ffffff;
+  --accent-soft: #dcefe6;
+  --accent-ink: #0f6449;
+  --ok: #157a5b;
+  --warn: #9a6200;
+  --bad: #b42318;
+  --f-display: 'Geist Variable', system-ui, sans-serif;
+  --f-body: 'Geist Variable', system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #0f1211; --surface: #161a18; --sunken: #1c211f; --fg: #e8ece9; --muted: #9ba59f; --line: #2a302d;
+    --accent: #3fbf8f; --on-accent: #0b1a14; --accent-soft: #173327; --accent-ink: #6fd6ad;
+    --ok: #4cc795; --warn: #e2a93b; --bad: #f2776b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme='dark'] {
+  --bg: #0f1211; --surface: #161a18; --sunken: #1c211f; --fg: #e8ece9; --muted: #9ba59f; --line: #2a302d;
+  --accent: #3fbf8f; --on-accent: #0b1a14; --accent-soft: #173327; --accent-ink: #6fd6ad;
+  --ok: #4cc795; --warn: #e2a93b; --bad: #f2776b;
+  color-scheme: dark;
+}
+
+/* Northstar Clinic (Manrope, teal) */
+.t-clinic {
+  --bg: #f5f8f8; --surface: #ffffff; --sunken: #e8efef; --fg: #10201f; --muted: #4f6362; --line: #d3dfde;
+  --accent: #0f766e; --on-accent: #ffffff; --accent-soft: #d5ecea; --accent-ink: #0c5f58;
+  --f-display: 'Manrope Variable', system-ui, sans-serif; --f-body: 'Manrope Variable', system-ui, sans-serif;
+}
+/* Alpine House (Cormorant Garamond display for a heritage mountain hotel, Geist body, forest green) */
+.t-hotel {
+  --bg: #f3f4ef; --surface: #fbfbf8; --sunken: #e6e9e1; --fg: #18211c; --muted: #546057; --line: #d4d9cf;
+  --accent: #2f5a43; --on-accent: #f4f7f2; --accent-soft: #dce7df; --accent-ink: #284d39;
+  --f-display: 'Cormorant Garamond', Georgia, serif; --f-body: 'Geist Variable', system-ui, sans-serif;
+}
+/* Ember & Plate (Bricolage Grotesque, terracotta on slate) */
+.t-restaurant {
+  --bg: #f4f4f3; --surface: #ffffff; --sunken: #e7e7e5; --fg: #1a1c1e; --muted: #5a5f64; --line: #d8d9d8;
+  --accent: #b8432a; --on-accent: #ffffff; --accent-soft: #f6e0d9; --accent-ink: #9c3822;
+  --f-display: 'Bricolage Grotesque Variable', system-ui, sans-serif; --f-body: 'Bricolage Grotesque Variable', system-ui, sans-serif;
+}
+/* North & Co. (Outfit, monochrome + cobalt) */
+.t-store {
+  --bg: #fafaf9; --surface: #ffffff; --sunken: #eeeeec; --fg: #161616; --muted: #5d5d5b; --line: #dededb;
+  --accent: #2c3fd1; --on-accent: #ffffff; --accent-soft: #e2e5fb; --accent-ink: #2433b0;
+  --f-display: 'Outfit Variable', system-ui, sans-serif; --f-body: 'Outfit Variable', system-ui, sans-serif;
+}
+/* Harbor Ops (IBM Plex Sans, slate + harbour blue) */
+.t-ops {
+  --bg: #f4f6f8; --surface: #ffffff; --sunken: #e9edf1; --fg: #131a22; --muted: #536170; --line: #d6dde4;
+  --accent: #0369a1; --on-accent: #ffffff; --accent-soft: #dceefa; --accent-ink: #035a8a;
+  --f-display: 'IBM Plex Sans', system-ui, sans-serif; --f-body: 'IBM Plex Sans', system-ui, sans-serif;
+}
+
+
+/* Dark tokens for each demo, following the same system / toggle logic as the portfolio */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .t-clinic {
+  --bg:#0c1615; --surface:#122020; --sunken:#172928; --fg:#e3eeed; --muted:#97adab; --line:#25393a; --accent:#2fb3a6; --on-accent:#06201d; --accent-soft:#143532; --accent-ink:#5fd0c4;
+  color-scheme: dark;
+}
+  :root:not([data-theme='light']) .t-hotel {
+  --bg:#111612; --surface:#171e19; --sunken:#1d251f; --fg:#e7ece6; --muted:#a0aa9f; --line:#2b342d; --accent:#8fc2a3; --on-accent:#10241a; --accent-soft:#1f3328; --accent-ink:#a9d6ba;
+  color-scheme: dark;
+}
+  :root:not([data-theme='light']) .t-restaurant {
+  --bg:#131416; --surface:#1a1c1f; --sunken:#212327; --fg:#ecebea; --muted:#a3a6aa; --line:#2e3135; --accent:#e57a55; --on-accent:#2a0f06; --accent-soft:#3a2219; --accent-ink:#f09a7b;
+  color-scheme: dark;
+}
+  :root:not([data-theme='light']) .t-store {
+  --bg:#111111; --surface:#191919; --sunken:#202020; --fg:#efefed; --muted:#a3a3a0; --line:#2f2f2e; --accent:#8193ff; --on-accent:#0d1340; --accent-soft:#232a52; --accent-ink:#a3b0ff;
+  color-scheme: dark;
+}
+  :root:not([data-theme='light']) .t-ops {
+  --bg:#0e1319; --surface:#151c24; --sunken:#1b232d; --fg:#e4e9ef; --muted:#9aa7b5; --line:#28323e; --accent:#4fb3ea; --on-accent:#04223a; --accent-soft:#16334a; --accent-ink:#7cc8f2;
+  color-scheme: dark;
+}
+}
+:root[data-theme='dark'] .t-clinic {
+  --bg:#0c1615; --surface:#122020; --sunken:#172928; --fg:#e3eeed; --muted:#97adab; --line:#25393a; --accent:#2fb3a6; --on-accent:#06201d; --accent-soft:#143532; --accent-ink:#5fd0c4;
+  color-scheme: dark;
+}
+:root[data-theme='dark'] .t-hotel {
+  --bg:#111612; --surface:#171e19; --sunken:#1d251f; --fg:#e7ece6; --muted:#a0aa9f; --line:#2b342d; --accent:#8fc2a3; --on-accent:#10241a; --accent-soft:#1f3328; --accent-ink:#a9d6ba;
+  color-scheme: dark;
+}
+:root[data-theme='dark'] .t-restaurant {
+  --bg:#131416; --surface:#1a1c1f; --sunken:#212327; --fg:#ecebea; --muted:#a3a6aa; --line:#2e3135; --accent:#e57a55; --on-accent:#2a0f06; --accent-soft:#3a2219; --accent-ink:#f09a7b;
+  color-scheme: dark;
+}
+:root[data-theme='dark'] .t-store {
+  --bg:#111111; --surface:#191919; --sunken:#202020; --fg:#efefed; --muted:#a3a3a0; --line:#2f2f2e; --accent:#8193ff; --on-accent:#0d1340; --accent-soft:#232a52; --accent-ink:#a3b0ff;
+  color-scheme: dark;
+}
+:root[data-theme='dark'] .t-ops {
+  --bg:#0e1319; --surface:#151c24; --sunken:#1b232d; --fg:#e4e9ef; --muted:#9aa7b5; --line:#28323e; --accent:#4fb3ea; --on-accent:#04223a; --accent-soft:#16334a; --accent-ink:#7cc8f2;
+  color-scheme: dark;
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--f-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .surface-root { background: var(--bg); color: var(--fg); font-family: var(--f-body); min-height: 100dvh; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  ::selection { background: var(--accent-soft); color: var(--fg); }
+  img { max-width: 100%; }
+  button { cursor: pointer; }
+  button:disabled { cursor: not-allowed; }
+  input, select, textarea { font: inherit; color: inherit; }
+}
+
+@layer components {
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    border-radius: 999px; padding: 0.7rem 1.25rem; font-weight: 600; font-size: 0.95rem; line-height: 1.2;
+    white-space: nowrap; transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .btn:active:not(:disabled) { transform: translateY(1px) scale(0.98); }
+  .btn:disabled { opacity: 0.5; }
+  .btn-primary { background: var(--accent); color: var(--on-accent); }
+  .btn-primary:hover:not(:disabled) { background: color-mix(in oklab, var(--accent) 88%, var(--fg)); }
+  .btn-ghost { border: 1px solid var(--line); color: var(--fg); background: transparent; }
+  .btn-ghost:hover:not(:disabled) { border-color: var(--fg); }
+  .btn-sm { padding: 0.45rem 0.9rem; font-size: 0.85rem; }
+
+  .field { display: grid; gap: 0.4rem; }
+  .field > label, .label { font-size: 0.85rem; font-weight: 600; color: var(--fg); }
+  .input {
+    width: 100%; border-radius: 10px; border: 1px solid var(--line); background: var(--surface);
+    padding: 0.65rem 0.8rem; font-size: 0.95rem; color: var(--fg); transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .input::placeholder { color: var(--muted); opacity: 0.85; }
+  .input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .input[aria-invalid='true'] { border-color: var(--bad); }
+  .help { font-size: 0.8rem; color: var(--muted); }
+  .error { font-size: 0.8rem; color: var(--bad); font-weight: 500; }
+
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 0.35rem; border-radius: 999px; border: 1px solid var(--line);
+    padding: 0.2rem 0.65rem; font-size: 0.78rem; font-weight: 500; color: var(--muted); white-space: nowrap;
+  }
+  .chip-on { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  .wrap { width: 100%; max-width: 80rem; margin-inline: auto; padding-inline: 1rem; }
+  @media (min-width: 768px) { .wrap { padding-inline: 2rem; } }
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+@media print {
+  [data-demo-bar], [data-no-print] { display: none !important; }
+  body { background: #fff; color: #111; }
+}
