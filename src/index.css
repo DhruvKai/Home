@@ -4,7 +4,8 @@
   Design tokens. Every surface (the portfolio and each demo) defines the same semantic
   variables, so Tailwind utilities like bg-surface or text-accent adapt to the surface they
   are rendered in. Each surface has exactly one accent colour, in light and dark.
-  Shape rule (all surfaces): buttons are pills, cards 16px, inputs 10px.
+  Shape rule: the portfolio and the first four demos use pill buttons, 16px cards and 10px inputs.
+  The second set (dental, linden, koji, sprout) restyles these primitives inside its own scope.
 */
 @theme inline {
   --color-bg: var(--bg);
@@ -90,6 +91,32 @@
   --f-display: 'IBM Plex Sans', system-ui, sans-serif; --f-body: 'IBM Plex Sans', system-ui, sans-serif;
 }
 
+/* Lumen Dental Studio (Instrument Serif display, Plus Jakarta Sans body, lavender, frosted glass) */
+.t-dental {
+  --bg: #f6f4fb; --surface: #ffffff; --sunken: #ece8f6; --fg: #1d1830; --muted: #5f5876; --line: #e1dcef;
+  --accent: #6747d6; --on-accent: #ffffff; --accent-soft: #e9e3fd; --accent-ink: #5233bf;
+  --f-display: 'Instrument Serif', Georgia, serif; --f-body: 'Plus Jakarta Sans Variable', system-ui, sans-serif;
+}
+/* The Linden (Fraunces display, Geist body, brass on near-black). Dark first: light only when chosen. */
+.t-linden {
+  --bg: #0d0c0a; --surface: #15130f; --sunken: #1c1a15; --fg: #ede6d8; --muted: #a39b8b; --line: #2e2a23;
+  --accent: #c9a45c; --on-accent: #1a1405; --accent-soft: #2b2416; --accent-ink: #dcbd7e;
+  --f-display: 'Fraunces Variable', Georgia, serif; --f-body: 'Geist Variable', system-ui, sans-serif;
+  color-scheme: dark;
+}
+/* Koji Ramen Counter (Space Grotesk + JetBrains Mono, Swiss grid, signal red) */
+.t-koji {
+  --bg: #f2f1ed; --surface: #f2f1ed; --sunken: #e6e4de; --fg: #0b0b0b; --muted: #55554f; --line: #0b0b0b;
+  --accent: #e3241b; --on-accent: #ffffff; --accent-soft: #fbe0de; --accent-ink: #b3150d;
+  --f-display: 'Space Grotesk Variable', system-ui, sans-serif; --f-body: 'Space Grotesk Variable', system-ui, sans-serif;
+}
+/* Sprout Supply (Archivo Black display, Archivo body, neo-brutalist, leaf green on cream) */
+.t-sprout {
+  --bg: #fff8ec; --surface: #ffffff; --sunken: #ffefc4; --fg: #111111; --muted: #4a4740; --line: #111111;
+  --accent: #34c26f; --on-accent: #111111; --accent-soft: #d6f6e2; --accent-ink: #13703a;
+  --f-display: 'Archivo Black', system-ui, sans-serif; --f-body: 'Archivo Variable', system-ui, sans-serif;
+}
+
 
 /* Dark tokens for each demo, following the same system / toggle logic as the portfolio */
 @media (prefers-color-scheme: dark) {
@@ -107,6 +134,18 @@
 }
   :root:not([data-theme='light']) .t-store {
   --bg:#111111; --surface:#191919; --sunken:#202020; --fg:#efefed; --muted:#a3a3a0; --line:#2f2f2e; --accent:#8193ff; --on-accent:#0d1340; --accent-soft:#232a52; --accent-ink:#a3b0ff;
+  color-scheme: dark;
+}
+  :root:not([data-theme='light']) .t-dental {
+  --bg:#110e1a; --surface:#1a1626; --sunken:#211c30; --fg:#ece8f7; --muted:#a69fbd; --line:#2f2944; --accent:#a993ff; --on-accent:#1a1033; --accent-soft:#2a2148; --accent-ink:#c3b4ff;
+  color-scheme: dark;
+}
+  :root:not([data-theme='light']) .t-koji {
+  --bg:#0c0c0c; --surface:#0c0c0c; --sunken:#181818; --fg:#f2f1ed; --muted:#9b9b95; --line:#f2f1ed; --accent:#ff4a3d; --on-accent:#0c0c0c; --accent-soft:#3a1512; --accent-ink:#ff7b70;
+  color-scheme: dark;
+}
+  :root:not([data-theme='light']) .t-sprout {
+  --bg:#121212; --surface:#1b1b1b; --sunken:#29261b; --fg:#fff8ec; --muted:#bab4a6; --line:#fff8ec; --accent:#5be38f; --on-accent:#111111; --accent-soft:#1d3a28; --accent-ink:#7cf0a8;
   color-scheme: dark;
 }
   :root:not([data-theme='light']) .t-ops {
@@ -129,6 +168,22 @@
 :root[data-theme='dark'] .t-store {
   --bg:#111111; --surface:#191919; --sunken:#202020; --fg:#efefed; --muted:#a3a3a0; --line:#2f2f2e; --accent:#8193ff; --on-accent:#0d1340; --accent-soft:#232a52; --accent-ink:#a3b0ff;
   color-scheme: dark;
+}
+:root[data-theme='dark'] .t-dental {
+  --bg:#110e1a; --surface:#1a1626; --sunken:#211c30; --fg:#ece8f7; --muted:#a69fbd; --line:#2f2944; --accent:#a993ff; --on-accent:#1a1033; --accent-soft:#2a2148; --accent-ink:#c3b4ff;
+  color-scheme: dark;
+}
+:root[data-theme='dark'] .t-koji {
+  --bg:#0c0c0c; --surface:#0c0c0c; --sunken:#181818; --fg:#f2f1ed; --muted:#9b9b95; --line:#f2f1ed; --accent:#ff4a3d; --on-accent:#0c0c0c; --accent-soft:#3a1512; --accent-ink:#ff7b70;
+  color-scheme: dark;
+}
+:root[data-theme='dark'] .t-sprout {
+  --bg:#121212; --surface:#1b1b1b; --sunken:#29261b; --fg:#fff8ec; --muted:#bab4a6; --line:#fff8ec; --accent:#5be38f; --on-accent:#111111; --accent-soft:#1d3a28; --accent-ink:#7cf0a8;
+  color-scheme: dark;
+}
+:root[data-theme='light'] .t-linden {
+  --bg:#f3efe7; --surface:#faf7f1; --sunken:#e9e3d7; --fg:#1a1712; --muted:#5e574a; --line:#d8d0c0; --accent:#8a6a2b; --on-accent:#fbf7ee; --accent-soft:#efe4cc; --accent-ink:#6f5420;
+  color-scheme: light;
 }
 :root[data-theme='dark'] .t-ops {
   --bg:#0e1319; --surface:#151c24; --sunken:#1b232d; --fg:#e4e9ef; --muted:#9aa7b5; --line:#28323e; --accent:#4fb3ea; --on-accent:#04223a; --accent-soft:#16334a; --accent-ink:#7cc8f2;
@@ -186,11 +241,65 @@
     padding: 0.2rem 0.65rem; font-size: 0.78rem; font-weight: 500; color: var(--muted); white-space: nowrap;
   }
   .chip-on { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  /* Per-demo shape language. The second set of demos restyles the shared primitives so each reads as its own product. */
+  .t-dental .btn-primary { box-shadow: 0 10px 30px -12px color-mix(in oklab, var(--accent) 70%, transparent); }
+  .t-dental .card { border-radius: 28px; }
+  .t-dental .input { border-radius: 14px; }
+  .t-dental .glass {
+    background: color-mix(in oklab, var(--surface) 62%, transparent); border: 1px solid color-mix(in oklab, var(--surface) 80%, transparent);
+    backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);
+    box-shadow: 0 20px 50px -30px color-mix(in oklab, var(--fg) 45%, transparent);
+  }
+  .t-dental .mesh {
+    background:
+      radial-gradient(60% 50% at 15% 10%, var(--accent-soft) 0%, transparent 70%),
+      radial-gradient(50% 45% at 90% 20%, color-mix(in oklab, var(--accent-soft) 70%, var(--bg)) 0%, transparent 70%),
+      radial-gradient(70% 60% at 60% 100%, var(--sunken) 0%, transparent 70%), var(--bg);
+  }
+
+  .t-linden .btn { border-radius: 0; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.74rem; padding: 0.95rem 1.6rem; font-weight: 500; }
+  .t-linden .btn-sm { padding: 0.6rem 1rem; font-size: 0.68rem; }
+  .t-linden .btn-ghost { border-color: color-mix(in oklab, var(--fg) 35%, transparent); }
+  .t-linden .card, .t-linden .input, .t-linden .chip { border-radius: 0; }
+  .t-linden .input { background: transparent; }
+  .t-linden .input option { background: var(--surface); }
+  .t-linden .field > label, .t-linden .label { font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted); }
+
+  .t-koji .btn { border-radius: 0; font-family: 'JetBrains Mono Variable', ui-monospace, monospace; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.02em; }
+  .t-koji .btn-ghost { border-color: var(--fg); }
+  .t-koji .btn-ghost:hover:not(:disabled) { background: var(--fg); color: var(--bg); }
+  .t-koji .card, .t-koji .input, .t-koji .chip { border-radius: 0; }
+  .t-koji .input { border-color: var(--fg); }
+  .t-koji .field > label, .t-koji .label { font-family: 'JetBrains Mono Variable', ui-monospace, monospace; font-size: 0.72rem; font-weight: 500; text-transform: uppercase; }
+  .t-koji .font-mono { font-family: 'JetBrains Mono Variable', ui-monospace, monospace; }
+
+  .t-sprout .btn { border-radius: 12px; border: 2px solid var(--fg); box-shadow: 3px 3px 0 var(--fg); font-weight: 700;
+    transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s, background-color 0.15s; }
+  .t-sprout .btn:hover:not(:disabled) { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--fg); }
+  .t-sprout .btn:active:not(:disabled) { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--fg); }
+  .t-sprout .btn-primary:hover:not(:disabled) { background: var(--accent); }
+  .t-sprout .btn-ghost { background: var(--surface); border-color: var(--fg); }
+  .t-sprout .card { border: 2px solid var(--fg); border-radius: 18px; box-shadow: 6px 6px 0 var(--fg); }
+  .t-sprout .input { border: 2px solid var(--fg); border-radius: 12px; }
+  .t-sprout .input:focus { box-shadow: 3px 3px 0 var(--accent); }
+  .t-sprout .chip { border: 2px solid var(--fg); color: var(--fg); font-weight: 600; }
+  .t-sprout .chip-on { background: var(--accent); color: var(--on-accent); }
   .wrap { width: 100%; max-width: 80rem; margin-inline: auto; padding-inline: 1rem; }
   @media (min-width: 768px) { .wrap { padding-inline: 2rem; } }
   .no-scrollbar { scrollbar-width: none; }
   .no-scrollbar::-webkit-scrollbar { display: none; }
 }
+
+/* Koji is square everywhere, including the shared dialogs, maps and toasts it renders. */
+.t-koji :is(.rounded-xl, .rounded-2xl, .rounded-t-2xl, .rounded-\[10px\], .rounded-\[22px\]) { border-radius: 0; }
+.t-koji .fixed.inset-0 > div:last-child, .t-koji [aria-live] > div { border-radius: 0; }
+.t-linden :is(.rounded-xl, .rounded-2xl, .rounded-t-2xl), .t-linden .fixed.inset-0 > div:last-child { border-radius: 0; }
+.t-sprout .fixed.inset-0 > div:last-child:not(.inset-y-0) { border: 2px solid var(--fg); box-shadow: 8px 8px 0 var(--fg); }
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee { animation: marquee 30s linear infinite; }
+@keyframes wiggle { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-2deg); } 70% { transform: rotate(2deg); } }
+.wiggle:hover { animation: wiggle 0.4s ease-in-out; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

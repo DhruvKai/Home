@@ -155,7 +155,7 @@ function Reserve() {
     );
   }
   return (
-    <form onSubmit={submit} noValidate className="grid gap-6 rounded-2xl border border-line bg-surface p-5 sm:p-8">
+    <form onSubmit={submit} noValidate className="grid min-w-0 grid-cols-1 gap-6 rounded-2xl border border-line bg-surface p-5 sm:p-8">
       <div>
         <p className="label">Party size</p>
         <div className="mt-2 flex flex-wrap gap-2">
@@ -261,7 +261,7 @@ export default function RestaurantSite() {
       <Menu onPick={setDish} />
 
       <section id="reserve" className="scroll-mt-28 bg-surface py-16 md:py-24">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_1.4fr]">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_1.4fr]">
           <div>
             <h2 className="font-display text-4xl font-extrabold tracking-tight md:text-5xl">Book a table</h2>
             <p className="mt-3 max-w-[40ch] text-muted">Tables are held for 15 minutes. Walk-ins welcome at the bar.</p>

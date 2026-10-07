@@ -15,6 +15,7 @@ const DEMOS = [
   '/demos/business-dashboard', '/demos/business-dashboard/customers', '/demos/business-dashboard/tasks', '/demos/business-dashboard/invoices',
   '/demos/business-dashboard/invoices/new', '/demos/business-dashboard/products', '/demos/business-dashboard/analytics',
   '/demos/business-dashboard/notifications', '/demos/business-dashboard/settings',
+  '/demos/dental', '/demos/linden', '/demos/koji', '/demos/sprout',
 ];
 
 const failures = [];
@@ -229,6 +230,85 @@ await flow('Harbor Ops invoice shows on list and dashboard', browser, async (pag
   await go(page, '/demos/business-dashboard');
   const onDash = await page.$eval('[data-testid=recent-invoices]', (e, n) => e.innerText.includes(n), number);
   if (!onDash) throw new Error(`${number} not on the dashboard`);
+});
+
+// Clicks the first enabled button inside `scope` whose text matches `re`.
+async function clickMatch(page, scope, re) {
+  const done = await page.evaluate((sc, src) => {
+    const rx = new RegExp(src);
+    const el = [...document.querySelectorAll(`${sc} button`)].find((b) => !b.disabled && rx.test(b.textContent) && b.getBoundingClientRect().width > 0);
+    if (!el) return false;
+    el.scrollIntoView({ block: 'center' });
+    el.click();
+    return true;
+  }, scope, re.source);
+  if (!done) throw new Error(`no enabled button in ${scope} matching ${re}`);
+  await sleep(350);
+}
+
+await flow('dental planner, estimate and booking', browser, async (page) => {
+  await go(page, '/demos/dental');
+  await click(page, 'header button', 'Plan your visit');
+  await click(page, '[role=dialog] button', 'Whitening');
+  await click(page, '[role=dialog] button', 'In-chair, one visit');
+  await click(page, '[role=dialog] button', 'See my estimate');
+  await waitText(page, '₹16,000');
+  await click(page, '[role=dialog] button', 'Choose a time');
+  await clickMatch(page, '[role=dialog] .grid', /^\d{1,2}:\d\d (am|pm)$/);
+  await click(page, '[role=dialog] button', 'Continue');
+  await type(page, '#dn-name', 'Smoke Patient');
+  await type(page, '#dn-phone', '98765 43210');
+  await click(page, '[role=dialog] button', 'Confirm visit');
+  await waitText(page, 'See you soon');
+});
+
+await flow('linden calendar, room, extras and hold', browser, async (page) => {
+  await go(page, '/demos/linden');
+  await click(page, '#reserve button', 'Continue');
+  await clickMatch(page, '#reserve', /\/ night/);
+  await click(page, '#reserve button', 'Continue');
+  await click(page, '#reserve button', 'Late check-out');
+  await click(page, '#reserve button', 'Continue');
+  await type(page, '#ln-name', 'Smoke Guest');
+  await type(page, '#ln-email', 'guest@example.com');
+  await click(page, '#reserve button', 'Hold my room');
+  await waitText(page, 'We will keep the lights low');
+});
+
+await flow('koji bowl builder, ticket and live status', browser, async (page) => {
+  await go(page, '/demos/koji');
+  await click(page, '#bowls button', 'Add');
+  await click(page, '#build button', 'Miso');
+  await click(page, '#build button', 'Butter corn');
+  await click(page, '#build button', 'Add to ticket');
+  await click(page, 'header button', 'Ticket (2)');
+  await clickMatch(page, '[role=dialog] fieldset', /^\d\d:\d\d$/);
+  await type(page, '#kj-name', 'Smoke Eater');
+  await type(page, '#kj-phone', '98765 43210');
+  await click(page, '[role=dialog] button', 'Send to counter');
+  await waitText(page, 'Ticket A-');
+});
+
+await flow('sprout quiz, cart and simulated payment', browser, async (page) => {
+  await go(page, '/demos/sprout');
+  await click(page, 'button', 'Find my plant');
+  await click(page, '[role=dialog] button', 'Somewhere dim');
+  await click(page, '[role=dialog] button', 'I forget for weeks');
+  await click(page, '[role=dialog] button', 'Yes, a curious one');
+  await click(page, '[role=dialog] button', 'Desk or shelf');
+  await waitText(page, 'These will be happy with you.');
+  await click(page, '[role=dialog] button', 'Add to cart');
+  await page.keyboard.press('Escape');
+  await sleep(400);
+  await click(page, 'header button', 'Cart');
+  await click(page, '[role=dialog] button', 'Checkout');
+  await type(page, '#sp-name', 'Smoke Gardener');
+  await type(page, '#sp-phone', '98765 43210');
+  await type(page, '#sp-pin', '160017');
+  await type(page, '#sp-addr', '12 Test Street, Riverton');
+  await click(page, '[role=dialog] button', 'Pay ');
+  await click(page, '[role=dialog] button', 'Confirm payment');
+  await waitText(page, 'Your plants are on the way');
 });
 
 await flow('contact form builds the email', browser, async (page) => {

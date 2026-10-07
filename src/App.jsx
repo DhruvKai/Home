@@ -13,6 +13,10 @@ const Hotel = lazy(() => import('./demos/hotel/HotelApp'));
 const Restaurant = lazy(() => import('./demos/restaurant/RestaurantApp'));
 const Store = lazy(() => import('./demos/ecommerce/StoreApp'));
 const Ops = lazy(() => import('./demos/business-dashboard/OpsApp'));
+const Dental = lazy(() => import('./demos/dental/DentalApp'));
+const Linden = lazy(() => import('./demos/linden/LindenApp'));
+const Koji = lazy(() => import('./demos/koji/KojiApp'));
+const Sprout = lazy(() => import('./demos/sprout/SproutApp'));
 
 const basename = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -56,6 +60,10 @@ export default function App() {
           <Route path="demos/restaurant/*" element={<Restaurant />} />
           <Route path="demos/ecommerce/*" element={<Store />} />
           <Route path="demos/business-dashboard/*" element={<Ops />} />
+          <Route path="demos/dental/*" element={<Dental />} />
+          <Route path="demos/linden/*" element={<Linden />} />
+          <Route path="demos/koji/*" element={<Koji />} />
+          <Route path="demos/sprout/*" element={<Sprout />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

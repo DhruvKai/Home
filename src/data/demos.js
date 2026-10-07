@@ -4,6 +4,8 @@
 export const demos = [
   {
     key: 'clinic',
+    category: 'clinic',
+    style: 'Soft and clinical',
     ref: 'clinic',
     name: 'Northstar Clinic',
     type: 'Clinic website + appointment admin',
@@ -16,6 +18,8 @@ export const demos = [
   },
   {
     key: 'hotel',
+    category: 'hotel',
+    style: 'Heritage serif',
     ref: 'hotel',
     name: 'Alpine House',
     type: 'Boutique hotel website',
@@ -28,6 +32,8 @@ export const demos = [
   },
   {
     key: 'restaurant',
+    category: 'restaurant',
+    style: 'Warm and bold',
     ref: 'restaurant',
     name: 'Ember & Plate',
     type: 'Restaurant ordering + reservations',
@@ -40,6 +46,8 @@ export const demos = [
   },
   {
     key: 'ecommerce',
+    category: 'ecommerce',
+    style: 'Clean retail',
     ref: 'ecommerce',
     name: 'North & Co.',
     type: 'Online store + store admin',
@@ -50,6 +58,70 @@ export const demos = [
     tech: ['React', 'Zustand', 'Recharts'],
     ask: 'Need something like this for your store?',
   },
+  {
+    key: 'dental',
+    category: 'clinic',
+    style: 'Frosted glass and bento',
+    ref: 'clinic',
+    name: 'Lumen Dental Studio',
+    type: 'Dental studio website',
+    path: '/demos/dental',
+    shot: 'dental',
+    description: 'A calm dental studio where patients build a treatment plan, see the full estimate and monthly options, then pick a slot.',
+    demonstrates: ['Treatment planner with live estimate', 'Pay-monthly options shown upfront', 'Bento layout with glass panels', 'Slot picker that hides closed days'],
+    tech: ['React', 'Zustand', 'Motion'],
+    ask: 'Need something like this for your practice?',
+  },
+  {
+    key: 'linden',
+    category: 'hotel',
+    style: 'Dark editorial',
+    ref: 'hotel',
+    name: 'The Linden',
+    type: 'City hotel website',
+    path: '/demos/linden',
+    shot: 'linden',
+    description: 'A moody city hotel told like a magazine, with a reservation flow from a date-range calendar to a held room.',
+    demonstrates: ['Date-range calendar', 'Room availability per night', 'Add-ons with a live price breakdown', 'Cinematic, scroll-revealed pages'],
+    tech: ['React', 'Zustand', 'Motion'],
+    ask: 'Need something like this for your hotel?',
+  },
+  {
+    key: 'koji',
+    category: 'restaurant',
+    style: 'Swiss grid',
+    ref: 'restaurant',
+    name: 'Kōji Ramen Counter',
+    type: 'Order-ahead restaurant site',
+    path: '/demos/koji',
+    shot: 'koji',
+    description: 'A ramen counter where customers build their own bowl, pick a pickup slot and follow a live ticket number.',
+    demonstrates: ['Build-your-bowl with live pricing', 'Pickup slots every 15 minutes', 'Live ticket status', 'Strict typographic grid'],
+    tech: ['React', 'Zustand', 'Mobile-first'],
+    ask: 'Need something like this for your restaurant?',
+  },
+  {
+    key: 'sprout',
+    category: 'ecommerce',
+    style: 'Playful neo-brutalist',
+    ref: 'ecommerce',
+    name: 'Sprout Supply',
+    type: 'Plant shop with product finder',
+    path: '/demos/sprout',
+    shot: 'sprout',
+    description: 'A plant shop that asks four honest questions, recommends plants that fit, and checks out in a side drawer.',
+    demonstrates: ['Product-finder quiz with scoring', 'Filters for light, pets and care', 'Pot options that change the price', 'Cart with a free-repotting goal'],
+    tech: ['React', 'Zustand', 'Responsive'],
+    ask: 'Need something like this for your store?',
+  },
+];
+
+// Category rows on the home page, each showing two contrasting designs.
+export const CATEGORIES = [
+  ['clinic', 'Clinics'],
+  ['hotel', 'Hotels'],
+  ['restaurant', 'Restaurants'],
+  ['ecommerce', 'Online stores'],
 ];
 
 export const applications = {

@@ -3,7 +3,8 @@ import { ArrowUpRight } from '@phosphor-icons/react';
 import photos from '../data/photos.json';
 import { img } from '../lib/asset';
 
-const GROUPS = { hotel: 'Alpine House (hotel demo)', restaurant: 'Ember & Plate (restaurant demo)', clinic: 'Northstar Clinic (clinic demo)', store: 'North & Co. (store demo)' };
+const GROUPS = { hotel: 'Alpine House (hotel demo)', restaurant: 'Ember & Plate (restaurant demo)', clinic: 'Northstar Clinic (clinic demo)', store: 'North & Co. (store demo)',
+  dental: 'Lumen Dental Studio (clinic demo)', linden: 'The Linden (hotel demo)', koji: 'Kōji Ramen Counter (restaurant demo)', sprout: 'Sprout Supply (store demo)' };
 
 export default function Credits() {
   useEffect(() => { document.title = 'Photo credits | Dhruv Kaith'; }, []);

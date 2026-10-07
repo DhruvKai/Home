@@ -28,6 +28,10 @@ const targets = {
     ['ecommerce', '/demos/ecommerce'],
     ['ecommerce-admin', '/demos/ecommerce/admin', (p) => clickText(p, 'Sign in')],
     ['business-dashboard', '/demos/business-dashboard'],
+    ['dental', '/demos/dental'],
+    ['linden', '/demos/linden'],
+    ['koji', '/demos/koji'],
+    ['sprout', '/demos/sprout'],
   ].map(([k, p, prep]) => [k, base + p, { width: 1440, height: 900 }, prep]),
 };
 

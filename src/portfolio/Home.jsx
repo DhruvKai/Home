@@ -5,7 +5,7 @@ import {
   ArrowRight, ArrowUpRight, Browsers, Check, DeviceMobile, GithubLogo, Info, ShieldCheck, Storefront, SquaresFour, Code,
 } from '@phosphor-icons/react';
 import { work, tools } from '../data/work';
-import { demos, applications } from '../data/demos';
+import { CATEGORIES, demos, applications } from '../data/demos';
 import { shot } from '../lib/asset';
 import { Reveal, RealBadge, ConceptBadge, Shot } from './ui';
 import ContactForm from './ContactForm';
@@ -122,7 +122,8 @@ function DemoCard({ d, i }) {
       </Link>
       <div className="flex flex-1 flex-col p-5 md:p-6">
         <div className="flex flex-wrap items-center gap-2"><ConceptBadge /><span className="text-sm text-muted">{d.type}</span></div>
-        <h3 className="mt-3 text-xl font-semibold tracking-tight">{d.name}</h3>
+        <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-accent-ink">{d.style}</p>
+        <h4 className="mt-1 text-xl font-semibold tracking-tight">{d.name}</h4>
         <p className="mt-2 leading-relaxed text-muted">{d.description}</p>
         <p className="mt-5 text-sm font-semibold">What this demonstrates</p>
         <ul className="mt-2 grid gap-1.5 text-[15px] sm:grid-cols-2">
@@ -150,7 +151,7 @@ function Concepts() {
         <Reveal>
           <p className="text-xs font-semibold uppercase tracking-[0.14em] text-accent-ink">Concept demos</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">More than just a portfolio.</h2>
-          <p className="mt-3 max-w-[60ch] text-lg text-muted">Here are a few examples of what I can build for different types of businesses.</p>
+          <p className="mt-3 max-w-[60ch] text-lg text-muted">Two contrasting designs for each type of business, to show the range of what I can build.</p>
         </Reveal>
         <Reveal className="mt-8 flex gap-3 rounded-2xl border border-line bg-surface p-4 text-[15px] leading-relaxed">
           <Info size={20} className="mt-0.5 shrink-0 text-accent-ink" />
@@ -159,9 +160,20 @@ function Concepts() {
             <span className="text-muted">I designed and built each one as a working demo you can click through. Names, people, prices and reviews are sample data, and nothing is really booked or paid.</span>
           </p>
         </Reveal>
-        <div className="mt-8 grid gap-6 md:grid-cols-2">
-          {demos.map((d, i) => <DemoCard key={d.key} d={d} i={i} />)}
-        </div>
+        {CATEGORIES.map(([cat, label]) => {
+          const pair = demos.filter((d) => d.category === cat);
+          return (
+            <div key={cat} className="mt-14">
+              <Reveal className="flex items-baseline justify-between gap-4 border-b border-line pb-3">
+                <h3 className="text-2xl font-semibold tracking-tight">{label}</h3>
+                <p className="text-sm text-muted">{pair.length} designs</p>
+              </Reveal>
+              <div className="mt-6 grid gap-6 md:grid-cols-2">
+                {pair.map((d, i) => <DemoCard key={d.key} d={d} i={i} />)}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
