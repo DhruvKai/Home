@@ -14,7 +14,7 @@ export default function Credits() {
       <p className="mt-4 max-w-[62ch] text-lg leading-relaxed text-muted">
         The concept demos use stock photos from Unsplash under the{' '}
         <a href="https://unsplash.com/license" target="_blank" rel="noreferrer" className="text-fg underline underline-offset-2">Unsplash License</a>.
-        Each thumbnail links to the original file on Unsplash. Screenshots of real projects are of my own work.
+        Each thumbnail links to the original file on Unsplash. Screenshots of the example projects are taken from their live sites.
       </p>
       {Object.entries(GROUPS).map(([group, title]) => (
         <div key={group} className="mt-12">

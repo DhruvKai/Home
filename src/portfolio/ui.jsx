@@ -22,7 +22,7 @@ export function Reveal({ children, delay = 0, className, as = 'div' }) {
   );
 }
 
-// "/SELECTED WORK" style heading with a large faded word behind it.
+// "/EXAMPLE PROJECTS" style heading with a large faded word behind it.
 export function SectionHeading({ id, word, children, sub, invert, className }) {
   const reduce = useReducedMotion();
   return (

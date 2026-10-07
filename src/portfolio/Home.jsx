@@ -145,11 +145,11 @@ function ProjectCard({ p, wide, i }) {
   );
 }
 
-function SelectedWork() {
+function Examples() {
   const [lead, ...rest] = work;
   return (
     <section id="work" aria-labelledby="work-h" className={cx(shell, 'scroll-mt-24 py-20 md:py-32')}>
-      <SectionHeading id="work-h" word="Portfolio" sub="Real projects I designed and built, live and on GitHub.">Selected work</SectionHeading>
+      <SectionHeading id="work-h" word="Examples" sub="Real, live projects you can open and click through, with the code on GitHub.">Example projects</SectionHeading>
       <div className="mt-14 grid gap-5 md:grid-cols-2 md:gap-6">
         <ProjectCard p={lead} wide i={0} />
         {rest.map((p, i) => <ProjectCard key={p.slug} p={p} i={i} />)}
@@ -388,7 +388,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <SelectedWork />
+      <Examples />
       <Concepts />
       <Applications />
       <Services />

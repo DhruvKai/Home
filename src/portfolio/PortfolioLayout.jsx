@@ -9,7 +9,7 @@ import { SERVICES } from '../data/services';
 import { Available, SocialPills, avatar } from './ui';
 
 const LINKS = [
-  ['Work', '/#work', work.length],
+  ['Examples', '/#work', work.length],
   ['Concepts', '/#concepts', demos.length],
   ['Services', '/#services', SERVICES.length],
   ['Contact', '/#contact'],

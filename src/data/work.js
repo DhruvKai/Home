@@ -6,7 +6,7 @@ export const work = [
     slug: 'overhere',
     name: 'Overhere',
     // Source: Overhere/tech.txt (part 1)
-    kind: 'My own product, in beta',
+    kind: 'Social planning web app (PWA)',
     summary: 'A mobile-first web app for finding company for plans in Chandigarh. Post a plan, others ask to join, the host chooses, and the group chats.',
     live: 'https://overhere.social',
     liveLabel: 'overhere.social',

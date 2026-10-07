@@ -12,7 +12,7 @@ Vite + React 19 + React Router 7 + Tailwind v4 (`@tailwindcss/vite`) + Zustand (
 - `npm run smoke`: E2E click-through in headless Edge (`scripts/browser.mjs` finds Edge/Chrome)
 
 ## Hard rules
-1. **Real projects contain only facts verified from the repos** (README, tech.txt, live site). No invented features, clients, users, stats or results. Describe them neutrally: Overhere is Dhruv's own product in beta, and Kidy is a store prototype built ahead of a Shopify build, with no client named or claimed.
+1. **Real projects contain only facts verified from the repos** (README, tech.txt, live site). No invented features, clients, users, stats or results. Describe them neutrally and present them as **examples** (the home section is "Example projects", the nav link "Examples"), never as "selected work". Overhere is **not** Dhruv's own product: never call it his own, his product or his startup. Kidy is a store prototype built ahead of a Shopify build, with no client named or claimed.
 2. **Every demo route renders `DemoBar`** ("Concept Demo — Fictional Business", link back to the portfolio, "Start a project like this") **and a footer disclaimer**. Real projects never carry the demo badge, and demos never carry the "Real project" badge.
 3. **Demos use fictional brands only**: Northstar Clinic, Alpine House, Ember & Plate, North & Co., Harbor Ops, and the second set Lumen Dental Studio, The Linden, Kōji Ramen Counter, Sprout Supply. No real phone numbers, no `wa.me` links, no real payment gateways and no real addresses. WhatsApp, call and pay buttons open simulated sheets. Maps are stylised, not pins on real buildings. People, reviews and figures are labelled sample data.
 4. Stock photos must be Unsplash-licensed, have no visible third-party brand logos, and be listed on `/credits` (generated from `photos.json`).
@@ -52,7 +52,7 @@ GitHub Pages: build with `BASE_PATH=/<repo>/` (read in `vite.config.js` and pass
 Done: everything in the plan, plus a second design per category (Lumen Dental Studio, The Linden, Kōji Ramen Counter, Sprout Supply) with smoke flows for each. Portfolio pages, all five demos, real-project and demo screenshots, `npm run smoke` passing (all routes at 1440 and 390, labelling rules, and the clinic / hotel / restaurant / store / Harbor Ops / contact flows), also passing against a `BASE_PATH=/Portfolio/` build.
 
 Open:
-- Pushed to github.com/DhruvKai/Portfolio (main). In repo Settings > Pages, the source must be the `gh-pages` branch (root) for the site to go live at dhruvkai.github.io/Portfolio/
+- Pushed to github.com/DhruvKai/Home (main; the repo was renamed from Portfolio, so the old dhruvkai.github.io/Portfolio/ link is dead). Live at dhruvkai.github.io/Home/ (Settings > Pages source: `gh-pages` branch, root)
 - After any UI change: `npm run build && npm run preview`, then `npm run screenshots -- demos` and `npm run smoke`.
 
 Image keys by demo: `hotel/*`, `restaurant/*`, `clinic/*` (dr-1 to dr-5 are doctor portraits), `store/*`, `dental/*` (dr-1 to dr-3 portraits), `linden/*`, `koji/*`, `sprout/*`. See `photos.json`.
