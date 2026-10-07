@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useMotionValue, useReducedMotion, useSpring } from 'motion/react';
+import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useSpring } from 'motion/react';
 import { ArrowRight, ArrowUpRight, Check, GithubLogo, Info, X } from '@phosphor-icons/react';
 import { work, tools } from '../data/work';
 import { CATEGORIES, demos, applications } from '../data/demos';
@@ -19,7 +19,7 @@ const TAGS = {
 };
 
 // Portrait is a cut-out PNG exported at three widths; this is its width / height.
-const PORTRAIT = { w: 1200, h: 1061 };
+const PORTRAIT = { w: 1200, h: 1314 };
 
 const shell = 'mx-auto max-w-[1400px] px-4 md:px-8';
 
@@ -34,6 +34,48 @@ function Letters({ word, delay, reduce }) {
   ));
 }
 
+// Black and white portrait; colour shows only inside a soft circle that follows the pointer (a tap on touch screens).
+function Portrait({ reduce }) {
+  const [on, setOn] = useState(false);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 350, damping: 32, mass: 0.4 });
+  const sy = useSpring(y, { stiffness: 350, damping: 32, mass: 0.4 });
+  const mask = useMotionTemplate`radial-gradient(circle 150px at ${reduce ? x : sx}px ${reduce ? y : sy}px, #000 30%, transparent 100%)`;
+  const img = {
+    src: portrait(800),
+    srcSet: `${portrait(500)} 500w, ${portrait(800)} 800w, ${portrait(1200)} 1200w`,
+    sizes: '(min-width: 1024px) 40vw, 100vw',
+    width: PORTRAIT.w, height: PORTRAIT.h,
+  };
+  const point = (e, jump) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const px = e.clientX - r.left, py = e.clientY - r.top;
+    x.set(px); y.set(py);
+    if (jump) { sx.jump(px); sy.jump(py); }
+  };
+
+  return (
+    <motion.div
+      initial={reduce ? false : { opacity: 0, y: 60 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.2, delay: 0.35, ease: EASE }}
+      onPointerEnter={(e) => { point(e, true); setOn(true); }}
+      onPointerDown={(e) => { point(e, true); setOn(true); }}
+      onPointerMove={(e) => point(e)}
+      onPointerLeave={() => setOn(false)}
+      onPointerCancel={() => setOn(false)}
+      className="pointer-events-auto relative h-auto w-full lg:h-full lg:w-auto">
+      <img {...img} alt="Dhruv Kaith in a dark blazer, white shirt and clear glasses" fetchPriority="high"
+        className="block h-auto w-full grayscale lg:h-full lg:w-auto" />
+      <motion.img {...img} alt="" aria-hidden="true"
+        initial={false} animate={{ opacity: on ? 1 : 0 }} transition={{ duration: on ? 0.25 : 0.6, ease: EASE }}
+        style={{ maskImage: mask, WebkitMaskImage: mask }}
+        className="pointer-events-none absolute inset-0 size-full" />
+    </motion.div>
+  );
+}
+
 function Hero() {
   const reduce = useReducedMotion();
   return (
@@ -45,19 +87,8 @@ function Hero() {
         <span aria-hidden="true" className="self-end sm:self-auto"><Letters word="Kaith" delay={0.25} reduce={reduce} /></span>
       </h1>
 
-      <div className="pointer-events-none relative z-10 mx-auto -mt-[3vw] w-full max-w-[600px] sm:-mt-[3vw] sm:w-[76%] lg:absolute lg:bottom-0 lg:left-1/2 lg:mt-0 lg:h-[70%] lg:w-auto lg:max-w-none lg:-translate-x-1/2 xl:h-[80%]">
-        <motion.img
-          src={portrait(800)}
-          srcSet={`${portrait(500)} 500w, ${portrait(800)} 800w, ${portrait(1200)} 1200w`}
-          sizes="(min-width: 1024px) 56vw, 100vw"
-          width={PORTRAIT.w} height={PORTRAIT.h}
-          alt="Dhruv Kaith in a black T-shirt and clear glasses"
-          fetchPriority="high"
-          initial={reduce ? false : { opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.35, ease: EASE }}
-          className="pointer-events-auto h-auto w-full grayscale transition-[filter] duration-700 hover:grayscale-0 lg:h-full lg:w-auto"
-        />
+      <div className="pointer-events-none relative z-10 mx-auto -mt-[3vw] w-full max-w-[600px] sm:-mt-[3vw] sm:w-[76%] lg:absolute lg:bottom-0 lg:left-1/2 lg:mt-0 lg:h-[82%] lg:w-auto lg:max-w-none lg:-translate-x-1/2 xl:h-[80%]">
+        <Portrait reduce={reduce} />
       </div>
 
       <motion.div
@@ -321,7 +352,7 @@ function Process() {
                   transition={{ duration: 0.35, ease: EASE }}>
                   {PROCESS.map((p, i) => (
                     <img key={p.verb} src={p.shot ? shot(...p.shot) : avatar()} alt="" loading="lazy"
-                      className={cx('absolute inset-0 size-full object-cover transition-opacity duration-300', p.shot ? 'object-top' : 'object-[50%_30%]', active === i ? 'opacity-100' : 'opacity-0')} />
+                      className={cx('absolute inset-0 size-full object-cover transition-opacity duration-300', p.shot ? 'object-top' : 'object-center', active === i ? 'opacity-100' : 'opacity-0')} />
                   ))}
                 </motion.div>
               </div>
