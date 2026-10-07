@@ -3,7 +3,7 @@
 Client-facing portfolio for Dhruv Kaith (github.com/DhruvKai). It separates **real projects** from **fictional concept demos** that show what he can build for businesses. Full approved plan: `C:\Users\Dhruv\.claude\plans\make-a-portiflio-website-squishy-wolf.md`.
 
 ## Stack and commands
-Vite + React 19 + React Router 7 + Tailwind v4 (`@tailwindcss/vite`) + Zustand (persist) + `@phosphor-icons/react` + Recharts (lazy, admin screens only) + `motion`. Fonts are self-hosted with @fontsource: Geist/Geist Mono (portfolio), Manrope (clinic), Cormorant Garamond (hotel), Bricolage Grotesque (restaurant), Outfit (store), IBM Plex Sans (Harbor Ops), Instrument Serif + Plus Jakarta Sans (Lumen), Fraunces (The Linden), Space Grotesk + JetBrains Mono (Kōji), Archivo Black + Archivo (Sprout).
+Vite + React 19 + React Router 7 + Tailwind v4 (`@tailwindcss/vite`) + Zustand (persist) + `@phosphor-icons/react` + Recharts (lazy, admin screens only) + `motion`. Fonts are self-hosted with @fontsource: Manrope (portfolio pages), Geist/Geist Mono (demo bar and shared demo chrome), Manrope (clinic), Cormorant Garamond (hotel), Bricolage Grotesque (restaurant), Outfit (store), IBM Plex Sans (Harbor Ops), Instrument Serif + Plus Jakarta Sans (Lumen), Fraunces (The Linden), Space Grotesk + JetBrains Mono (Kōji), Archivo Black + Archivo (Sprout).
 
 - `npm run dev` / `npm run build` (vite build + `scripts/postbuild.mjs`, which copies index.html to 404.html for GitHub Pages) / `npm run preview`
 - `npm run fetch-images`: downloads the Unsplash photos in `src/data/photos.json` to `public/images/<group>/<key>.webp`
@@ -18,7 +18,9 @@ Vite + React 19 + React Router 7 + Tailwind v4 (`@tailwindcss/vite`) + Zustand (
 4. Stock photos must be Unsplash-licensed, have no visible third-party brand logos, and be listed on `/credits` (generated from `photos.json`).
 5. **Mobile apps:** the services copy says Dhruv builds **iOS and Android apps** as well as websites and web apps (cross-platform React Native / Expo is the natural fit with this stack). **Never mention Claude, AI assistants or AI-generated code anywhere on the site.**
 6. Visual rules come from the design-taste skill: no em-dashes in copy, except the user-mandated "Concept Demo — Fictional Business" label; one accent colour per surface; one CTA label per intent; light/dark tokens.
-7. The contact form builds a `mailto:` to `CONTACT_EMAIL` in `src/config.js` (kaithdhruv@gmail.com).
+7. The contact form builds a `mailto:` to `CONTACT_EMAIL` in `src/config.js` (kaithdhruv@gmail.com). `SITE.linkedin` in the same file drives every LinkedIn link; they stay hidden while it is empty.
+8. **Portfolio look** (inspired by a monochrome Dribbble portfolio Dhruv chose): off-white / off-black tokens with no colour accent (the green `--live` dot is the only colour, and only on the availability pill), Manrope, giant outlined + solid name with Dhruv's cut-out photo overlapping it, `/SECTION` headings with a faded watermark word (`SectionHeading` in `portfolio/ui.jsx`), pill links (`SocialPills`), hover-to-open service rows, an inverted Process band with a cursor-following preview. One contact label everywhere on portfolio pages: "Let's talk". No invented experience, clients or job history (the reference's Experience timeline became Process).
+9. **Photo of Dhruv:** `public/me/portrait-{500,800,1200}.webp` (transparent head-and-shoulders cut-out from his Instagram photo, 1200x1061) and `public/me/avatar.webp` (from his LinkedIn headshot). Both made from small originals by upscaling 4x with Real-ESRGAN x4plus and cutting out with BiRefNet-portrait (scratch tools, not project dependencies). Replace these files if he supplies a larger original.
 
 ## Real projects (verified)
 - **Overhere**: https://overhere.social (GitHub Pages, CNAME). Mobile-first PWA for finding company for plans in Chandigarh. Vanilla JS SPA, Supabase (Postgres RLS, Auth, Realtime, Edge Functions in Deno/TS), Twilio Verify, AWS Rekognition Face Liveness, Cloudflare Turnstile, Leaflet/OSM, CSP, Puppeteer tests. Source: repo `tech.txt`.
@@ -29,7 +31,8 @@ Vite + React 19 + React Router 7 + Tailwind v4 (`@tailwindcss/vite`) + Zustand (
 ## Folder map
 ```
 src/config.js  src/data/{work,demos}.js  src/data/photos.json
-src/portfolio/            Home, WorkDetail (/work/:slug), Contact (/contact?ref=), Credits
+src/portfolio/            Home, WorkDetail (/work/:slug), Contact (/contact?ref=), Credits, ui (SectionHeading, SocialPills, Available)
+src/data/services.js      services and process rows used by the home page and the nav counts
 src/demos/_shared/        DemoShell (bar + disclaimer + toasts), DemoBar, DemoDisclaimer, StartProjectCTA, Modal, Simulated,
                           Lightbox, bits (Accordion, StylisedMap, Stepper, Qty, Empty), charts (Recharts), demoStore
 src/lib/                  asset (base-path URLs), format (money, dates), theme (light/dark/system)

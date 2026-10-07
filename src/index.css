@@ -21,41 +21,43 @@
   --color-ok: var(--ok);
   --color-warn: var(--warn);
   --color-bad: var(--bad);
+  --color-live: var(--live);
   --font-display: var(--f-display);
   --font-body: var(--f-body);
   --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
 }
 
-/* Portfolio (Geist, emerald) */
+/* Portfolio (Manrope, monochrome: the accent is off-black in light mode and off-white in dark mode) */
 :root {
-  --bg: #f6f7f5;
-  --surface: #ffffff;
-  --sunken: #ebeeea;
-  --fg: #121614;
-  --muted: #59625d;
-  --line: #d9ded9;
-  --accent: #157a5b;
-  --on-accent: #ffffff;
-  --accent-soft: #dcefe6;
-  --accent-ink: #0f6449;
+  --bg: #f3f3f1;
+  --surface: #fbfbfa;
+  --sunken: #e8e8e5;
+  --fg: #151515;
+  --muted: #5b5b58;
+  --line: #d9d9d5;
+  --accent: #151515;
+  --on-accent: #f7f7f5;
+  --accent-soft: #e4e4e1;
+  --accent-ink: #151515;
   --ok: #157a5b;
   --warn: #9a6200;
   --bad: #b42318;
-  --f-display: 'Geist Variable', system-ui, sans-serif;
-  --f-body: 'Geist Variable', system-ui, sans-serif;
+  --live: #1fa45b;
+  --f-display: 'Manrope Variable', system-ui, sans-serif;
+  --f-body: 'Manrope Variable', system-ui, sans-serif;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --bg: #0f1211; --surface: #161a18; --sunken: #1c211f; --fg: #e8ece9; --muted: #9ba59f; --line: #2a302d;
-    --accent: #3fbf8f; --on-accent: #0b1a14; --accent-soft: #173327; --accent-ink: #6fd6ad;
+    --bg: #101010; --surface: #171717; --sunken: #1e1e1e; --fg: #ececea; --muted: #a2a29e; --line: #2b2b2a;
+    --accent: #ececea; --on-accent: #131313; --accent-soft: #262626; --accent-ink: #ececea; --live: #3ddc84;
     --ok: #4cc795; --warn: #e2a93b; --bad: #f2776b;
     color-scheme: dark;
   }
 }
 :root[data-theme='dark'] {
-  --bg: #0f1211; --surface: #161a18; --sunken: #1c211f; --fg: #e8ece9; --muted: #9ba59f; --line: #2a302d;
-  --accent: #3fbf8f; --on-accent: #0b1a14; --accent-soft: #173327; --accent-ink: #6fd6ad;
+  --bg: #101010; --surface: #171717; --sunken: #1e1e1e; --fg: #ececea; --muted: #a2a29e; --line: #2b2b2a;
+  --accent: #ececea; --on-accent: #131313; --accent-soft: #262626; --accent-ink: #ececea; --live: #3ddc84;
   --ok: #4cc795; --warn: #e2a93b; --bad: #f2776b;
   color-scheme: dark;
 }
@@ -284,6 +286,10 @@
   .t-sprout .input:focus { box-shadow: 3px 3px 0 var(--accent); }
   .t-sprout .chip { border: 2px solid var(--fg); color: var(--fg); font-weight: 600; }
   .t-sprout .chip-on { background: var(--accent); color: var(--on-accent); }
+  /* Outlined display letters (the portfolio hero name). */
+  .text-outline { color: transparent; -webkit-text-stroke: 1.5px var(--fg); }
+  @media (min-width: 640px) { .text-outline { -webkit-text-stroke-width: 2.5px; } }
+
   .wrap { width: 100%; max-width: 80rem; margin-inline: auto; padding-inline: 1rem; }
   @media (min-width: 768px) { .wrap { padding-inline: 2rem; } }
   .no-scrollbar { scrollbar-width: none; }
