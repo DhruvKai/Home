@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useSpring } from 'motion/react';
-import { ArrowRight, ArrowUpRight, Check, GithubLogo, Info, X } from '@phosphor-icons/react';
-import { work, tools } from '../data/work';
-import { CATEGORIES, demos, applications } from '../data/demos';
+import { ArrowRight, ArrowUpRight, Check, GithubLogo, X } from '@phosphor-icons/react';
+import { work } from '../data/work';
+import { CATEGORIES, demos } from '../data/demos';
 import { PROCESS, SERVICES } from '../data/services';
 import { SITE } from '../config';
 import { shot } from '../lib/asset';
 import { cx } from '../lib/format';
-import { Available, ConceptBadge, EASE, RealBadge, Reveal, SectionHeading, SocialPills, Shot, avatar, portrait } from './ui';
+import { Available, ConceptBadge, EASE, RealBadge, Reveal, SectionHeading, SocialPills, avatar, portrait } from './ui';
 import ContactForm from './ContactForm';
 
 // Verified stack highlights per project (see data/work.js for sources).
@@ -17,6 +17,15 @@ const TAGS = {
   dtours: ['Node.js', 'MongoDB', 'Stripe'],
   kidy: ['React 19', 'Zustand', 'No-code admin'],
 };
+
+// Every card in the Examples grid, grouped for the filter chips. A group with an odd number of cards
+// gets a wide first card, so no filter leaves a gap in the two-column grid.
+const GROUPS = [
+  ['real', 'Real projects', work],
+  ...CATEGORIES.map(([cat, label]) => [cat, label, demos.filter((d) => d.category === cat)]),
+];
+const CARDS = GROUPS.flatMap(([group, , items]) => items.map((item, i) => ({ group, item, wide: items.length % 2 === 1 && i === 0 })));
+const FILTERS = [['all', 'All', CARDS.length], ...GROUPS.map(([id, label, items]) => [id, label, items.length])];
 
 // Portrait is a cut-out PNG exported at three widths; this is its width / height.
 const PORTRAIT = { w: 1200, h: 1314 };
@@ -41,7 +50,7 @@ function Portrait({ reduce }) {
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 350, damping: 32, mass: 0.4 });
   const sy = useSpring(y, { stiffness: 350, damping: 32, mass: 0.4 });
-  const mask = useMotionTemplate`radial-gradient(circle 150px at ${reduce ? x : sx}px ${reduce ? y : sy}px, #000 30%, transparent 100%)`;
+  const mask = useMotionTemplate`radial-gradient(circle 180px at ${reduce ? x : sx}px ${reduce ? y : sy}px, #000 30%, transparent 100%)`;
   const img = {
     src: portrait(800),
     srcSet: `${portrait(500)} 500w, ${portrait(800)} 800w, ${portrait(1200)} 1200w`,
@@ -111,7 +120,7 @@ function Hero() {
 
 function ProjectCard({ p, wide, i }) {
   return (
-    <Reveal delay={(i % 2) * 0.06} className={cx('group flex flex-col rounded-[28px] border border-line bg-surface p-2.5 sm:p-3', wide && 'md:col-span-2')}>
+    <Reveal data-card="real" delay={(i % 2) * 0.06} className={cx('group flex flex-col rounded-[28px] border border-line bg-surface p-2.5 sm:p-3', wide && 'md:col-span-2')}>
       <Link to={`/work/${p.slug}`} className="relative block overflow-hidden rounded-[20px] bg-sunken" aria-label={`${p.name} case study`}>
         {wide ? (
           <div className="grid items-end gap-4 p-4 sm:grid-cols-[1fr_auto] sm:gap-6 sm:p-8">
@@ -145,58 +154,27 @@ function ProjectCard({ p, wide, i }) {
   );
 }
 
-function Examples() {
-  const [lead, ...rest] = work;
+function DemoCard({ d, wide, i }) {
   return (
-    <section id="work" aria-labelledby="work-h" className={cx(shell, 'scroll-mt-24 py-20 md:py-32')}>
-      <SectionHeading id="work-h" word="Examples" sub="Real, live projects you can open and click through, with the code on GitHub.">Example projects</SectionHeading>
-      <div className="mt-14 grid gap-5 md:grid-cols-2 md:gap-6">
-        <ProjectCard p={lead} wide i={0} />
-        {rest.map((p, i) => <ProjectCard key={p.slug} p={p} i={i} />)}
-      </div>
-
-      <div className="mt-20 grid gap-8 lg:grid-cols-[1fr_2fr]">
-        <Reveal>
-          <h3 className="text-2xl font-semibold tracking-tight">Software and tools</h3>
-          <p className="mt-2 text-muted">Security and desktop tools. Code on GitHub.</p>
-        </Reveal>
-        <ul className="grid gap-x-10 sm:grid-cols-2">
-          {tools.map((t, i) => (
-            <Reveal as="li" key={t.name} delay={(i % 2) * 0.05} className="border-t border-line">
-              <a href={t.github} target="_blank" rel="noreferrer" className="group block py-5">
-                <span className="flex items-center justify-between gap-4 text-lg font-semibold">
-                  {t.name}
-                  <ArrowUpRight size={18} className="text-muted transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-fg" />
-                </span>
-                <span className="mt-1.5 block text-[15px] leading-relaxed text-muted">{t.blurb}</span>
-                <span className="mt-2 block font-mono text-xs text-muted">{t.tech.join(' / ')}</span>
-              </a>
-            </Reveal>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-function DemoCard({ d, i }) {
-  return (
-    <Reveal delay={(i % 2) * 0.06} className="group flex flex-col rounded-[28px] border border-line bg-surface p-2.5 sm:p-3">
-      <Link to={d.path} className="relative block overflow-hidden rounded-[20px] bg-sunken" aria-label={`Open the ${d.name} demo`}>
+    <Reveal data-card="demo" delay={(i % 2) * 0.06} className={cx('group flex flex-col rounded-[28px] border border-line bg-surface p-2.5 sm:p-3', wide && 'md:col-span-2 lg:flex-row lg:items-start')}>
+      <Link to={d.path} className={cx('relative block overflow-hidden rounded-[20px] bg-sunken', wide && 'lg:w-[58%] lg:shrink-0')} aria-label={`Open the ${d.name} demo`}>
         <img src={shot('demos', d.shot)} alt={`${d.name} concept demo`} loading="lazy" className="aspect-[16/10] w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
         <span className="absolute left-1/2 top-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 scale-50 place-items-center rounded-full bg-fg text-bg opacity-0 shadow-xl transition duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-100 group-hover:opacity-100">
           <ArrowUpRight size={24} />
         </span>
       </Link>
-      <div className="flex flex-1 flex-col px-2.5 pb-2.5 pt-5 sm:px-3">
+      <div className={cx('flex flex-1 flex-col px-2.5 pb-2.5 pt-5 sm:px-3', wide && 'lg:self-stretch lg:py-5 lg:pl-7 lg:pr-4')}>
         <div className="flex flex-wrap items-center gap-2"><ConceptBadge /><span className="rounded-full border border-line px-2.5 py-0.5 text-xs font-semibold">{d.style}</span></div>
-        <h4 className="mt-3 text-xl font-semibold tracking-tight">{d.name} <span className="font-medium text-muted">- {d.type}</span></h4>
+        <h3 className={cx('mt-3 font-semibold tracking-tight', wide ? 'text-2xl md:text-[1.9rem]' : 'text-xl')}>{d.name} <span className="font-medium text-muted">- {d.type}</span></h3>
         <p className="mt-2 leading-relaxed text-muted">{d.description}</p>
         <ul className="mt-4 grid gap-1.5 text-[15px] sm:grid-cols-2">
           {d.demonstrates.map((x) => <li key={x} className="flex gap-2"><Check size={15} weight="bold" className="mt-1 shrink-0" />{x}</li>)}
         </ul>
         <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-6">
-          <Link to={d.path} className="btn btn-primary btn-sm">View demo <ArrowRight size={14} weight="bold" /></Link>
+          <span className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <Link to={d.path} className="btn btn-primary btn-sm">View demo <ArrowRight size={14} weight="bold" /></Link>
+            {d.admin && <Link to={d.admin} className="text-sm font-semibold underline-offset-4 hover:underline">Admin panel</Link>}
+          </span>
           <Link to={`/contact?ref=${d.ref}`} className="text-sm font-semibold underline-offset-4 hover:underline">Want one? Let's talk</Link>
         </div>
       </div>
@@ -204,73 +182,38 @@ function DemoCard({ d, i }) {
   );
 }
 
-function Concepts() {
+// Real projects and concept demos in one grid. Each card keeps its own badge, and the key above the grid explains both.
+function Examples() {
+  const [filter, setFilter] = useState('all');
+  const visible = filter === 'all' ? CARDS : CARDS.filter((c) => c.group === filter);
   return (
-    <section id="concepts" aria-labelledby="concepts-h" className={cx(shell, 'scroll-mt-24 py-20 md:py-32')}>
-      <SectionHeading id="concepts-h" word="Concepts" sub="Two contrasting designs for each type of business, to show the range of what I can build.">Concept demos</SectionHeading>
-      <Reveal className="mt-10 flex max-w-3xl gap-3 rounded-2xl border border-dashed border-line p-4 text-[15px] leading-relaxed">
-        <Info size={20} className="mt-0.5 shrink-0" />
-        <p>
-          <strong className="font-semibold">These are fictional businesses.</strong>{' '}
-          <span className="text-muted">I designed and built each one as a working demo you can click through. Names, people, prices and reviews are sample data, and nothing is really booked or paid.</span>
+    <section id="work" aria-labelledby="work-h" className={cx(shell, 'scroll-mt-24 py-20 md:py-32')}>
+      <SectionHeading id="work-h" word="Examples" sub="Real projects and concept demos in one place. Every card says which it is.">Examples and demos</SectionHeading>
+      <Reveal className="mt-10 grid max-w-3xl gap-3 rounded-2xl border border-dashed border-line p-4 text-[15px] leading-relaxed">
+        <p className="grid gap-1.5 sm:grid-cols-[8.5rem_1fr] sm:gap-3">
+          <span><RealBadge /></span>
+          <span className="text-muted">Live sites you can open and click through, with the code on GitHub.</span>
+        </p>
+        <p className="grid gap-1.5 sm:grid-cols-[8.5rem_1fr] sm:gap-3">
+          <span><ConceptBadge /></span>
+          <span className="text-muted">Fictional businesses I designed and built as working demos. Names, people, prices and reviews are sample data, and nothing is really booked or paid.</span>
         </p>
       </Reveal>
-      {CATEGORIES.map(([cat, label]) => {
-        const pair = demos.filter((d) => d.category === cat);
-        return (
-          <div key={cat} className="mt-16 grid gap-6 border-t border-line pt-8 lg:grid-cols-[13rem_1fr] lg:gap-10">
-            <div className="self-start lg:sticky lg:top-28">
-              <h3 className="text-3xl font-semibold tracking-tight">{label}</h3>
-              <p className="mt-1 font-mono text-sm text-muted">[{pair.length}] designs</p>
-            </div>
-            <div className="grid gap-5 md:grid-cols-2 md:gap-6">
-              {pair.map((d, i) => <DemoCard key={d.key} d={d} i={i} />)}
-            </div>
-          </div>
-        );
-      })}
-    </section>
-  );
-}
-
-function Applications() {
-  const { lead, more } = applications;
-  return (
-    <section id="applications" aria-labelledby="apps-h" className={cx(shell, 'scroll-mt-24 pb-20 md:pb-32')}>
-      <SectionHeading id="apps-h" word="Software" sub="Internal software and admin panels, also fictional and fully clickable.">Business apps</SectionHeading>
-      <Reveal className="mt-14 overflow-hidden rounded-[28px] border border-line bg-surface">
-        <div className="grid lg:grid-cols-[1.35fr_1fr]">
-          <Link to={lead.path} className="group block bg-sunken p-4 md:p-8" aria-label={`Open the ${lead.name} demo`}>
-            <Shot src={shot('demos', lead.shot)} alt={`${lead.name} dashboard`} className="transition-transform duration-700 ease-out group-hover:scale-[1.01]" />
-          </Link>
-          <div className="flex flex-col p-6 md:p-8">
-            <div className="flex flex-wrap items-center gap-2"><ConceptBadge /><span className="text-sm text-muted">{lead.type}</span></div>
-            <h3 className="mt-3 text-3xl font-semibold tracking-tight">{lead.name}</h3>
-            <p className="mt-2 leading-relaxed text-muted">{lead.description}</p>
-            <ul className="mt-5 grid gap-1.5 text-[15px] sm:grid-cols-2">
-              {lead.demonstrates.map((x) => <li key={x} className="flex gap-2"><Check size={15} weight="bold" className="mt-1 shrink-0" />{x}</li>)}
-            </ul>
-            <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-6">
-              <Link to={lead.path} className="btn btn-primary btn-sm">View demo <ArrowRight size={14} weight="bold" /></Link>
-              <Link to={`/contact?ref=${lead.ref}`} className="text-sm font-semibold underline-offset-4 hover:underline">Want one? Let's talk</Link>
-            </div>
-          </div>
-        </div>
-      </Reveal>
-      <div className="mt-5 grid gap-5 md:grid-cols-2 md:gap-6">
-        {more.map((m, i) => (
-          <Reveal key={m.key} delay={i * 0.06}>
-            <Link to={m.path} className="group grid grid-cols-[110px_1fr] items-center gap-5 rounded-[22px] border border-line bg-surface p-3 transition-colors hover:border-fg/40 sm:grid-cols-[170px_1fr]">
-              <div className="aspect-[16/10] overflow-hidden rounded-xl border border-line bg-sunken">
-                <img src={shot('demos', m.shot)} alt="" loading="lazy" className="size-full object-cover object-top" />
-              </div>
-              <div>
-                <p className="flex items-center gap-2 font-semibold">{m.name} <ArrowRight size={14} className="text-muted transition-transform group-hover:translate-x-0.5" /></p>
-                <p className="mt-1 text-sm leading-relaxed text-muted">{m.description}</p>
-              </div>
-            </Link>
-          </Reveal>
-        ))}
+      <div role="group" aria-label="Filter examples" className="mt-10 flex flex-wrap gap-2">
+        {FILTERS.map(([id, label, n]) => {
+          const on = filter === id;
+          return (
+            <button key={id} type="button" aria-pressed={on} onClick={() => setFilter(id)}
+              className={cx('rounded-full border px-4 py-2 text-[15px] font-semibold transition-colors duration-300 active:translate-y-px', on ? 'border-fg bg-fg text-bg' : 'border-line bg-surface hover:border-fg')}>
+              {label}<sup className={cx('ml-1 font-mono text-[11px] font-normal', on ? 'text-bg/65' : 'text-muted')}>[{n}]</sup>
+            </button>
+          );
+        })}
+      </div>
+      <div className="mt-6 grid gap-5 md:grid-cols-2 md:gap-6">
+        {visible.map(({ group, item, wide }, i) => (group === 'real'
+          ? <ProjectCard key={item.slug} p={item} wide={wide} i={i} />
+          : <DemoCard key={item.key} d={item} wide={wide} i={i} />))}
       </div>
     </section>
   );
@@ -389,8 +332,6 @@ export default function Home() {
     <>
       <Hero />
       <Examples />
-      <Concepts />
-      <Applications />
       <Services />
       <Process />
       <ContactSection />

@@ -9,8 +9,7 @@ import { SERVICES } from '../data/services';
 import { Available, SocialPills, avatar } from './ui';
 
 const LINKS = [
-  ['Examples', '/#work', work.length],
-  ['Concepts', '/#concepts', demos.length],
+  ['Examples', '/#work', work.length + demos.length],
   ['Services', '/#services', SERVICES.length],
   ['Contact', '/#contact'],
 ];

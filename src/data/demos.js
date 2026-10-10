@@ -1,5 +1,6 @@
 // Concept demos: fictional businesses built to show what can be made for real ones.
 // `ref` pre-fills the business type on the contact form (/contact?ref=...).
+// `admin` is the demo's back-office route, linked from its card on the home page.
 
 export const demos = [
   {
@@ -10,6 +11,7 @@ export const demos = [
     name: 'Northstar Clinic',
     type: 'Clinic website + appointment admin',
     path: '/demos/clinic',
+    admin: '/demos/clinic/admin',
     shot: 'clinic',
     description: 'A multi-specialty clinic site where patients pick a doctor and a slot, and staff manage the day from an admin.',
     demonstrates: ['Multi-step appointment booking', 'Doctor profiles and schedules', 'Live "open now" hours', 'Admin that receives each booking'],
@@ -52,6 +54,7 @@ export const demos = [
     name: 'North & Co.',
     type: 'Online store + store admin',
     path: '/demos/ecommerce',
+    admin: '/demos/ecommerce/admin',
     shot: 'ecommerce',
     description: 'An everyday-goods store with variants, a multi-step checkout and an admin for orders, stock and sales.',
     demonstrates: ['Filters, sorting and variant stock', 'Cart and multi-step checkout', 'Order history in an account', 'Admin with sales charts and inventory'],
@@ -114,19 +117,10 @@ export const demos = [
     tech: ['React', 'Zustand', 'Responsive'],
     ask: 'Need something like this for your store?',
   },
-];
-
-// Category rows on the home page, each showing two contrasting designs.
-export const CATEGORIES = [
-  ['clinic', 'Clinics'],
-  ['hotel', 'Hotels'],
-  ['restaurant', 'Restaurants'],
-  ['ecommerce', 'Online stores'],
-];
-
-export const applications = {
-  lead: {
+  {
     key: 'business-dashboard',
+    category: 'business-app',
+    style: 'Dense and practical',
     ref: 'business-app',
     name: 'Harbor Ops',
     type: 'Business operations app',
@@ -137,11 +131,16 @@ export const applications = {
     tech: ['React', 'Zustand', 'Recharts', 'Role-ready UI'],
     ask: 'Need software built around your workflow?',
   },
-  more: [
-    { key: 'clinic-admin', name: 'Clinic admin', path: '/demos/clinic/admin', shot: 'clinic-admin', description: 'Front-desk view of Northstar Clinic: today\'s appointments, statuses, enquiries and the doctor schedule.' },
-    { key: 'ecommerce-admin', name: 'Store admin', path: '/demos/ecommerce/admin', shot: 'ecommerce-admin', description: 'Back office of North & Co.: sales overview, orders, products, inventory and customers.' },
-  ],
-};
+];
+
+// Demo groups behind the filter chips on the home page.
+export const CATEGORIES = [
+  ['clinic', 'Clinics'],
+  ['hotel', 'Hotels'],
+  ['restaurant', 'Restaurants'],
+  ['ecommerce', 'Online stores'],
+  ['business-app', 'Business apps'],
+];
 
 export const BUSINESS_TYPES = [
   ['clinic', 'Clinic or healthcare'],

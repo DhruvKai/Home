@@ -30,7 +30,7 @@ export default function DemoBar({ projectRef }) {
           <span className="hidden text-white/65 md:inline">Built by Dhruv Kaith</span>
         </p>
         <nav className="flex items-center gap-1.5">
-          <Link to="/#concepts" className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-white/80 hover:bg-white/10 hover:text-white">
+          <Link to="/#work" className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-white/80 hover:bg-white/10 hover:text-white">
             <ArrowLeft size={14} weight="bold" /> Portfolio
           </Link>
           <Link to={`/contact?ref=${projectRef}`} className="inline-flex items-center gap-1.5 rounded-full bg-[#eef1ef] px-3 py-1 font-semibold text-[#151816] hover:bg-white">

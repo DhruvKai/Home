@@ -6,11 +6,12 @@ import { cx } from '../lib/format';
 
 export const EASE = [0.16, 1, 0.3, 1];
 
-export function Reveal({ children, delay = 0, className, as = 'div' }) {
+export function Reveal({ children, delay = 0, className, as = 'div', ...rest }) {
   const reduce = useReducedMotion();
   const M = motion[as];
   return (
     <M
+      {...rest}
       className={className}
       initial={reduce ? false : { opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}

@@ -79,7 +79,8 @@ export const work = [
   },
 ];
 
-// Secondary group: GitHub links only. Sources: each repo's README.
+// Desktop and security tools. Hidden from the site at Dhruv's request (2026-10-10), kept here so the group can return.
+// Sources: each repo's README.
 export const tools = [
   {
     name: 'VULVoyager',

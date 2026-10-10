@@ -311,6 +311,30 @@ await flow('sprout quiz, cart and simulated payment', browser, async (page) => {
   await waitText(page, 'Your plants are on the way');
 });
 
+await flow('home mixes real projects and demos and filters them', browser, async (page) => {
+  await go(page, '/');
+  const cards = () => page.$$eval('#work [data-card]', (els) => els.map((e) => ({ kind: e.dataset.card, text: e.innerText })));
+  const expect = async (label, total, real) => {
+    const list = await cards();
+    const reals = list.filter((c) => c.kind === 'real');
+    if (list.length !== total || reals.length !== real) throw new Error(`${label}: expected ${total} cards with ${real} real, got ${list.length} with ${reals.length}`);
+    const wrong = list.find((c) => (c.kind === 'real') !== c.text.includes('Real project') || (c.kind === 'demo') !== c.text.includes('Concept Demo'));
+    if (wrong) throw new Error(`${label}: a ${wrong.kind} card carries the wrong badge`);
+    return list;
+  };
+  await expect('all', 12, 3);
+  await click(page, '#work button', 'Real projects');
+  await expect('real projects', 3, 3);
+  await click(page, '#work button', 'Clinics');
+  await expect('clinics', 2, 0);
+  await click(page, '#work button', 'Business apps');
+  const [app] = await expect('business apps', 1, 0);
+  if (!app.text.includes('Harbor Ops')) throw new Error('Harbor Ops is not under Business apps');
+  for (const hidden of ['Software and tools', 'VULVoyager', 'SandBoxEQ', 'ZIPY']) {
+    if (await hasText(page, hidden)) throw new Error(`"${hidden}" should be hidden`);
+  }
+});
+
 await flow('contact form builds the email', browser, async (page) => {
   await go(page, '/contact?ref=hotel');
   const type0 = await page.$eval('#cf-type', (e) => e.value);
